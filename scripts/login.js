@@ -32,13 +32,9 @@ loginForm.addEventListener("submit", (e) => {
     .signInWithEmailAndPassword(email, password)
     .then(() => {
       // Login berhasil
-      console.log("Login berhasil");
+      console.log("login berhasil");
       errorMessage.textContent = "";
-      // loginContainer.style.display = "none";
-      // logoutButton.style.display = "block";
-
-      // Redirect to dashboard.html
-      alert("Login berhasil!");
+      alert("login Berhasil!");
       window.location.href = "../layout/dashboard.html";
       console.log("sudah membuka dashboard");
     })
