@@ -1,0 +1,54 @@
+/* CSS styling untuk form */
+body {
+  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url(../src/1.png);
+  background-size: cover;
+}
+
+.form-container {
+  max-width: 400px;
+  margin: 5em auto;
+  padding: 30px;
+  border: 1px solid #ccc;
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border-radius: 4px;
+}
+
+.form-container h2 {
+  text-align: center;
+}
+
+.form-container input[type="email"],
+.form-container input[type="password"],
+.form-container input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.form-container input[type="submit"] {
+  background-color: #4caf50;
+  color: white;
+  cursor: pointer;
+}
+
+.form-container p.error {
+  margin-top: 5px;
+  color: red;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 630px) {
+  .form-container {
+    max-width: 350px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .form-container {
+    max-width: 250px;
+  }
+}
