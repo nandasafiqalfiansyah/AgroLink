@@ -37,6 +37,7 @@ function performSearch() {
     });
   }
 }
+
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
     const userRef = firebase.database().ref("users/" + user.uid);

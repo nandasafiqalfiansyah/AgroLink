@@ -167,9 +167,14 @@
                         placeholder="Search for..."
                         aria-label="Search"
                         aria-describedby="basic-addon2"
+                        id="search-input"
                       />
                       <div class="input-group-append">
-                        <button class="btn btn-primary" type="button">
+                        <button
+                          class="btn btn-primary"
+                          type="button"
+                          onclick="performSearch()"
+                        >
                           <i class="fas fa-search fa-sm"></i>
                         </button>
                       </div>
