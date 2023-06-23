@@ -49,7 +49,7 @@ firebase.auth().onAuthStateChanged((user) => {
       const file = document.getElementById("profile-image").files[0]; // Mengambil file gambar yang diunggah
 
       if (name === "" || phone === "" || file === undefined) {
-        alert("Please fill in all fields.");
+        alert("Please fill in all fields. Tolong masukan semua data");
         return; // Menghentikan eksekusi jika ada nilai yang kosong
       }
 
@@ -107,7 +107,7 @@ firebase.auth().onAuthStateChanged((user) => {
                 // Penggunaan berhasil dihapus
                 console.log("Profile and account deleted successfully");
                 alert("Profile and account deleted successfully");
-                window.location.href = "../layout/index.html";
+                window.location.href = "index.html";
                 // Redirect ke halaman login atau tindakan yang sesuai
               })
               .catch((error) => {
@@ -136,6 +136,9 @@ firebase.auth().onAuthStateChanged((user) => {
           userData.imageUrl || ""; // Menampilkan gambar profil
         document.getElementById("updated-profile-images").src =
           userData.imageUrl || ""; // Menampilkan gambar profil
+
+        // Pembaruan komponen lainnya
+        // ...
       }
     });
 

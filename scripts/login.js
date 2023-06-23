@@ -34,7 +34,7 @@ loginForm.addEventListener("submit", (e) => {
       // Login berhasil
       console.log("login berhasil");
       errorMessage.textContent = "";
-      window.location.href = "../layout/dashboard.html";
+      window.location.href = "dashboard.html";
       console.log("sudah membuka dashboard");
     })
     .catch((error) => {

@@ -1,52 +1,94 @@
 // Referensi database
 const database = firebase.database();
 
-// Fungsi untuk mengirim pesan
+var senderName = "";
+// Fungsi untuk mengambil data nama dari folder "users"
 function sendMessage() {
   const messageInput = document.getElementById("message-input");
   const message = messageInput.value;
 
-  const nameInput = document.getElementById("nama");
-  const senderName = nameInput.value;
+  // Mendapatkan data pengguna saat ini
+  var currentUser = firebase.auth().currentUser;
 
-  // Menyimpan pesan ke database
-  database.ref("messages").push().set({
-    message: message,
-    sender: senderName,
-  });
+  if (currentUser) {
+    // Mendapatkan ID pengguna saat ini
+    var userId = currentUser.uid;
 
-  // Mengosongkan input pesan
-  messageInput.value = "";
-  window.location.href = "../layout/dashboard.html";
+    // Mendapatkan referensi ke posisi "users" dalam database
+    var usersRef = database.ref("users");
+
+    // Mendapatkan referensi ke posisi "messages" dalam database
+    var messagesRef = database.ref("messages");
+
+    // Mendapatkan data pengguna saat ini dari folder "users"
+    usersRef.child(userId).once("value", function (snapshot) {
+      var userData = snapshot.val();
+
+      if (userData) {
+        var name = userData.name;
+        var imageUrl = userData.imageUrl;
+
+        // Menyimpan pesan ke database
+        messagesRef.push().set({
+          message: message,
+          sender: name,
+          imageUrl: imageUrl,
+        });
+
+        // Mengosongkan input pesan
+        messageInput.value = "";
+      }
+    });
+  }
 }
 
-// Fungsi untuk membaca pesan-pesan dari database
+let isMessagesLoaded = false; // Flag untuk memastikan fungsi hanya dipanggil sekali
+
 function readMoreMessages() {
+  if (isMessagesLoaded) {
+    return; // Jika data sudah dimuat sebelumnya, keluar dari fungsi
+  }
+
   const chatContainer = document.getElementById("chat-container");
   chatContainer.innerHTML = "";
 
   const messagesRef = database.ref("messages");
 
+  messagesRef.off("value"); // Hapus listener sebelumnya
+
   messagesRef.on("value", function (snapshot) {
+    chatContainer.innerHTML = ""; // Menghapus konten sebelumnya sebelum memuat pesan-pesan baru
+
     snapshot.forEach(function (childSnapshot) {
       const messageKey = childSnapshot.key;
       const messageData = childSnapshot.val();
 
       const messageElement = document.createElement("div");
       messageElement.innerHTML = `
-         <div>
-         <hr/>
-           <span class="message-sender m-5"> ${messageData.sender}</span>
-           <span class="message-content m-5">${messageData.message} </span>
-            <a href="#" class="btn btn-danger btn-circle btn-sm" onclick="deleteMessage('${messageKey}')">
-             <i class="fas fa-trash"></i>
-           </a>
-           
-         </div>
-       `;
+        <table class="table table-striped">
+        <tr class="row ml-0">
+        <td><img class="img-profile rounded-circle border border-info" style="width:25px;height:25px;align-item:center;border:black" src="${messageData.imageUrl}" alt="User Image" /></td>
+        <td class="col"><span class="message-sender fw-bolder" style="font-size:20px">${messageData.sender}</span></td>
+        <td class="col">
+          <a href="#" class="btn btn-danger btn-sm" onclick="deleteMessage('${messageKey}')">
+          <i class="fas fa-trash"></i></a>
+          </td>
+        </tr>
+        <tr><th>
+        <span class="message-content ">pesan: ${messageData.message}</span>
+          </th>
+        
+        </tr>
+        <hr/>
+        </table>
+        
+        
+      `;
 
       chatContainer.appendChild(messageElement);
     });
+
+    isMessagesLoaded = true; // Set flag menjadi true setelah data dimuat
   });
 }
 
@@ -60,18 +102,12 @@ function deleteMessage(key) {
   // Mendapatkan referensi pesan yang akan dihapus
   const messageRef = database.ref("messages").child(key);
 
-  // Menampilkan konfirmasi dialog sebelum menghapus pesan
-  const confirmDelete = confirm("Apakah Anda yakin ingin menghapus pesan ini?");
-
-  if (confirmDelete) {
-    // Menghapus pesan dari database
-    messageRef
-      .remove()
-      .then(function () {
-        console.log("Pesan berhasil dihapus");
-      })
-      .catch(function (error) {
-        console.error("Error saat menghapus pesan:", error);
-      });
-  }
+  messageRef
+    .remove()
+    .then(function () {
+      console.log("Pesan berhasil dihapus");
+    })
+    .catch(function (error) {
+      console.error("Error saat menghapus pesan:", error);
+    });
 }
