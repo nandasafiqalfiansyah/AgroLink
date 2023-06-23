@@ -75,18 +75,10 @@
             data-parent="#accordionSidebar"
           >
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" href="404.html">404 Page</a>
-              <a class="collapse-item" href="blank.html">Blank Page</a>
+              <a class="collapse-item" href="#">Pompa 1</a>
+              <a class="collapse-item" href="#">Pompa 2</a>
             </div>
           </div>
-        </li>
-
-        <!-- Nav Item - Charts -->
-        <li class="nav-item">
-          <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a
-          >
         </li>
 
         <!-- Nav Item - Tables -->
@@ -271,122 +263,112 @@
               <h1 class="h3 mb-0 text-gray-800">Settings</h1>
             </div>
             <!-- Content Row -->
-            <div class="row">
-              <!-- profil -->
-              <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div class="font-weight-bold text-uppercase mb-1">
-                          Profile
-                        </div>
-                        <div id="updated-data-container ">
-                          <hr />
-                          <div>
-                            <strong>UID:</strong> <span id="updated-uid"></span>
-                          </div>
-                          <div>
-                            <strong>Name:</strong>
-                            <span id="updated-nama"></span>
-                          </div>
 
-                          <div>
-                            <strong>Email:</strong>
-                            <span id="updated-email"></span>
-                          </div>
-                          <div>
-                            <strong>Phone:</strong>
-                            <span id="updated-phone"></span>
-                          </div>
-                          <div>
-                            <strong>Profile Image:</strong>
-                            <img
-                              class="rounded mx-auto d-block"
-                              style="width: 30%"
-                              id="updated-profile-images"
-                              src=""
-                              alt="Profile Image"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- profil end -->
-
-              <!-- Earnings (Monthly) Card Example -->
-              <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-success shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-                        <div class="font-weight-bold text-uppercase mb-1">
-                          Edit Profile
-                        </div>
-                        <hr />
-                        <div>
-                          <label for="name">Name:</label>
-                          <input class="form-control" type="text" id="name" />
-                        </div>
-                        <div>
-                          <label for="phone">Phone:</label>
-                          <input class="form-control" type="text" id="phone" />
-                        </div>
-
-                        <div class="mb-3">
-                          <label for="formFile" class="form-label"
-                            >Profile Image :</label
-                          >
-                          <input
-                            class="form-control"
-                            type="file"
-                            id="profile-image"
-                          />
-                        </div>
-                        <div>
-                          <button id="save-btn" class="btn btn-primary">
-                            Save
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- delete -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h5 class="font-weight-bold text-uppercase mb-1">
-                    delete acount
-                  </h5>
-                </div>
+            <!-- profil -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
                 <div class="card-body">
-                  <p>
-                    Peringatan: Menghapus akun dashboard akan mengakibatkan
-                    kehilangan akses permanen ke semua data, pengaturan, dan
-                    informasi terkait. Tindakan ini tidak dapat dibatalkan dan
-                    semua informasi yang tersimpan akan dihapus secara permanen
-                  </p>
-                  <p>
-                    <code
-                      >Harap pastikan Anda telah melakukan backup atau menyalin
-                      semua data yang dianggap penting sebelum melanjutkan
-                      dengan menghapus akun dashboard. Jika Anda yakin akan
-                      tindakan ini, silakan pertimbangkan dengan hati-hati
-                      sebelum melanjutkan.
-                    </code>
-                  </p>
-                  <a class="btn btn-google btn-block" id="delete-btn">
-                    <i class="fas fa-trash"></i> delete acount</a
-                  >
+                  <div class="font-weight-bold text-uppercase mb-1">
+                    Profile
+                  </div>
+                  <div id="updated-data-container ">
+                    <hr />
+                    <div>
+                      <strong>UID:</strong> <span id="updated-uid"></span>
+                    </div>
+                    <div>
+                      <strong>Name :</strong>
+                      <span id="updated-nama"></span>
+                    </div>
+
+                    <div>
+                      <strong>Email:</strong>
+                      <span id="updated-email"></span>
+                    </div>
+                    <div>
+                      <strong>Phone:</strong>
+                      <span id="updated-phone"></span>
+                    </div>
+                    <div>
+                      <strong>Profile Image:</strong>
+                      <img
+                        width="40px"
+                        id="updated-profile-images"
+                        src=""
+                        alt="Profile Image"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
+
+            <!-- profil end -->
+
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <div class="font-weight-bold text-uppercase mb-1">
+                  Edit Profile
+                </div>
+                <div class="card-body">
+                  <hr />
+                  <div>
+                    <label for="name">Name:</label>
+                    <input class="form-control" type="text" id="name" />
+                  </div>
+                  <div>
+                    <label for="phone">Phone:</label>
+                    <input class="form-control" type="text" id="phone" />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="formFile" class="form-label"
+                      >Profile Image :</label
+                    >
+                    <input
+                      class="form-control"
+                      type="file"
+                      id="profile-image"
+                    />
+                  </div>
+
+                  <div>
+                    <a class="btn btn-primary form-control" id="save-btn">
+                      <i class="fas fa-check"> </i> submit</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- delete -->
+            <div class="card shadow mb-4">
+              <div class="card-header py-3">
+                <h5 class="font-weight-bold text-uppercase mb-1">
+                  delete acount
+                </h5>
+              </div>
+              <div class="card-body">
+                <p>
+                  Peringatan: Menghapus akun dashboard akan mengakibatkan
+                  kehilangan akses permanen ke semua data, pengaturan, dan
+                  informasi terkait. Tindakan ini tidak dapat dibatalkan dan
+                  semua informasi yang tersimpan akan dihapus secara permanen
+                </p>
+                <p>
+                  <code
+                    >Harap pastikan Anda telah melakukan backup atau menyalin
+                    semua data yang dianggap penting sebelum melanjutkan dengan
+                    menghapus akun dashboard. Jika Anda yakin akan tindakan ini,
+                    silakan pertimbangkan dengan hati-hati sebelum melanjutkan.
+                  </code>
+                </p>
+                <a class="btn btn-google form-control" id="delete-btn">
+                  <i class="fas fa-trash"></i> delete acount</a
+                >
+              </div>
+            </div>
+
             <!-- end -->
           </div>
           <!-- /.container-fluid -->
@@ -452,6 +434,7 @@
     </div>
 
     <!-- wajib -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <!-- firebase pilihan -->
