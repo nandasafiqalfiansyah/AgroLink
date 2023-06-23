@@ -37,7 +37,7 @@
         <!-- Sidebar - Brand -->
         <a
           class="sidebar-brand d-flex align-items-center justify-content-center"
-          href="index.html"
+          href="#"
         >
           <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
@@ -185,7 +185,6 @@
               </li>
 
               <!-- Nav Item - Messages -->
-              <!-- Nav Item - Messages -->
               <li class="nav-item dropdown no-arrow mx-1">
                 <a
                   class="nav-link dropdown-toggle"
@@ -307,34 +306,58 @@
                   <div class="font-weight-bold text-uppercase mb-1">
                     Profile
                   </div>
-                  <div id="updated-data-container ">
-                    <hr />
-                    <div>
-                      <strong>UID:</strong> <span id="updated-uid"></span>
-                    </div>
-                    <div>
-                      <strong>Name :</strong>
-                      <span id="updated-nama"></span>
-                    </div>
+                  <table class="table table-sm">
+                    <div id="updated-data-container">
+                      <hr />
+                      <tr>
+                        <td>
+                          <div class="col-sm-9 p-3">
+                            <strong>UID:</strong>
+                            <span id="updated-uid"></span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="col-sm-9 p-3">
+                            <strong>Nama:</strong>
+                            <span id="updated-nama"></span>
+                          </div>
+                        </td>
+                      </tr>
 
-                    <div>
-                      <strong>Email:</strong>
-                      <span id="updated-email"></span>
+                      <tr>
+                        <td>
+                          <div class="col-sm-9 p-3">
+                            <strong>Email:</strong>
+                            <span id="updated-email"></span>
+                          </div>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <div class="col-sm-9 p-3">
+                            <strong>Phone:</strong>
+                            <span id="updated-phone"></span>
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="col-sm-9 p-3">
+                            <strong>Profile Image:</strong>
+                            <img
+                              width="40px"
+                              id="updated-profile-images"
+                              src=""
+                              alt="Profile Image"
+                            />
+                          </div>
+                        </td>
+                      </tr>
                     </div>
-                    <div>
-                      <strong>Phone:</strong>
-                      <span id="updated-phone"></span>
-                    </div>
-                    <div>
-                      <strong>Profile Image:</strong>
-                      <img
-                        width="40px"
-                        id="updated-profile-images"
-                        src=""
-                        alt="Profile Image"
-                      />
-                    </div>
-                  </div>
+                  </table>
                 </div>
               </div>
             </div>
@@ -343,14 +366,15 @@
 
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <div class="font-weight-bold text-uppercase mb-1">
-                  Edit Profile
-                </div>
                 <div class="card-body">
+                  <div class="font-weight-bold text-uppercase mb-1">
+                    Edit Profile
+                  </div>
                   <hr />
                   <div>
                     <label for="name">Name:</label>
-                    <input class="form-control" type="text" id="name" />
+
+                    <input class="form-control" type="text" id="nameuser" />
                   </div>
                   <div>
                     <label for="phone">Phone:</label>
@@ -380,28 +404,30 @@
             <!-- delete -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <h5 class="font-weight-bold text-uppercase mb-1">
-                  delete acount
-                </h5>
-              </div>
-              <div class="card-body">
-                <p>
-                  Peringatan: Menghapus akun dashboard akan mengakibatkan
-                  kehilangan akses permanen ke semua data, pengaturan, dan
-                  informasi terkait. Tindakan ini tidak dapat dibatalkan dan
-                  semua informasi yang tersimpan akan dihapus secara permanen
-                </p>
-                <p>
-                  <code
-                    >Harap pastikan Anda telah melakukan backup atau menyalin
-                    semua data yang dianggap penting sebelum melanjutkan dengan
-                    menghapus akun dashboard. Jika Anda yakin akan tindakan ini,
-                    silakan pertimbangkan dengan hati-hati sebelum melanjutkan.
-                  </code>
-                </p>
-                <a class="btn btn-google form-control" id="delete-btn">
-                  <i class="fas fa-trash"></i> delete acount</a
-                >
+                <div class="card-body">
+                  <div class="font-weight-bold text-uppercase mb-1">
+                    delete acount
+                  </div>
+                  <hr />
+                  <p>
+                    Peringatan: Menghapus akun dashboard akan mengakibatkan
+                    kehilangan akses permanen ke semua data, pengaturan, dan
+                    informasi terkait. Tindakan ini tidak dapat dibatalkan dan
+                    semua informasi yang tersimpan akan dihapus secara permanen
+                  </p>
+                  <p>
+                    <code
+                      >Harap pastikan Anda telah melakukan backup atau menyalin
+                      semua data yang dianggap penting sebelum melanjutkan
+                      dengan menghapus akun dashboard. Jika Anda yakin akan
+                      tindakan ini, silakan pertimbangkan dengan hati-hati
+                      sebelum melanjutkan.
+                    </code>
+                  </p>
+                  <a class="btn btn-google form-control" id="delete-btn">
+                    <i class="fas fa-trash"></i> delete acount</a
+                  >
+                </div>
               </div>
             </div>
 
@@ -489,8 +515,5 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="js/sb-admin-2.min.js"></script>
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
   </body>
 </html>

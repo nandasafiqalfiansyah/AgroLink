@@ -6,7 +6,7 @@ function sendMessage() {
   const messageInput = document.getElementById("message-input");
   const message = messageInput.value;
 
-  const nameInput = document.getElementById("name");
+  const nameInput = document.getElementById("nama");
   const senderName = nameInput.value;
 
   // Menyimpan pesan ke database

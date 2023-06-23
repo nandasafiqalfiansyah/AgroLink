@@ -44,9 +44,10 @@ firebase.auth().onAuthStateChanged((user) => {
 
     // Event listener untuk tombol Save
     document.getElementById("save-btn").addEventListener("click", () => {
-      const name = document.getElementById("name").value;
+      const name = document.getElementById("nameuser").value;
       const phone = document.getElementById("phone").value;
       const file = document.getElementById("profile-image").files[0]; // Mengambil file gambar yang diunggah
+
       if (name === "" || phone === "" || file === undefined) {
         alert("Please fill in all fields.");
         return; // Menghentikan eksekusi jika ada nilai yang kosong
@@ -80,9 +81,11 @@ firebase.auth().onAuthStateChanged((user) => {
                 imageUrl: imageUrl,
               })
               .then(() => {
+                alert("Profile updated successfully");
                 console.log("Profile updated successfully");
               })
               .catch((error) => {
+                alert("Failed to update profile:", error.message);
                 console.log("Failed to update profile:", error.message);
               });
           });
@@ -135,16 +138,6 @@ firebase.auth().onAuthStateChanged((user) => {
           userData.imageUrl || ""; // Menampilkan gambar profil
       }
     });
-
-    document.getElementById("updated-uid").textContent = user.uid;
-    document.getElementById("updated-name").textContent = userData.name;
-    document.getElementById("updated-nama").textContent = userData.name;
-    document.getElementById("updated-email").textContent = user.email;
-    document.getElementById("updated-phone").textContent = userData.phone;
-    document.getElementById("updated-profile-image").src =
-      userData.imageUrl || ""; // Menampilkan gambar profil
-    document.getElementById("updated-profile-images").src =
-      userData.imageUrl || ""; // Menampilkan gambar profil
 
     // Lanjutkan dengan penggunaan userRef untuk akses ke data pengguna
   } else {
