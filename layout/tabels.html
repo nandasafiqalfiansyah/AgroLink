@@ -10,9 +10,12 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
 
-    <title>Dashboard</title>
+    <title>tabels</title>
 
     <!-- Custom fonts for this template-->
+    <!-- Custom styles for this page -->
+
+    <!-- Custom fonts for this template -->
     <link
       href="vendor/fontawesome-free/css/all.min.css"
       rel="stylesheet"
@@ -23,7 +26,14 @@
       rel="stylesheet"
     />
 
+    <!-- Custom styles for this template -->
     <link href="css/sb-admin-2.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this page -->
+    <link
+      href="vendor/datatables/dataTables.bootstrap4.min.css"
+      rel="stylesheet"
+    />
   </head>
 
   <body id="page-top">
@@ -83,7 +93,7 @@
 
         <!-- Nav Item - Tables -->
         <li class="nav-item">
-          <a class="nav-link" href="./tabels.html">
+          <a class="nav-link" href="#">
             <i class="fas fa-fw fa-table"></i>
             <span>Tables History</span></a
           >
@@ -204,6 +214,7 @@
                   aria-labelledby="messagesDropdown"
                 >
                   <h6 class="dropdown-header">Message Center</h6>
+
                   <a
                     class="dropdown-item text-center small text-gray-500"
                     href="#"
@@ -242,10 +253,11 @@
                   class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                   aria-labelledby="userDropdown"
                 >
-                  <a class="dropdown-item" href="#">
+                  <a class="dropdown-item" href="./profil.html">
                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                     Settings
                   </a>
+
                   <div class="dropdown-divider"></div>
                   <a
                     class="dropdown-item"
@@ -267,120 +279,58 @@
           <!-- Begin Page Content -->
           <div class="container-fluid">
             <!-- Page Heading -->
-            <div
-              class="d-sm-flex align-items-center justify-content-between mb-4"
-            >
-              <h1 class="h3 mb-0 text-gray-800">Settings</h1>
-            </div>
-            <!-- Content Row -->
+            <!-- Page Heading -->
+            <h1 class="h3 mb-2 text-gray-800">Tables History</h1>
+            <p class="mb-4">
+              DataTables is a third party plugin that is used to generate the
+              demo table below. For more information about DataTables, please
+              visit the
+              <a target="_blank" href="https://datatables.net"
+                >official DataTables documentation</a
+              >.
+            </p>
 
-            <!-- profil -->
+            <!-- DataTales Example -->
             <div class="card shadow mb-4">
               <div class="card-header py-3">
-                <div class="card-body">
-                  <div class="font-weight-bold text-uppercase mb-1">
-                    Profile
-                  </div>
-                  <div id="updated-data-container ">
-                    <hr />
-                    <div>
-                      <strong>UID:</strong> <span id="updated-uid"></span>
-                    </div>
-                    <div>
-                      <strong>Name :</strong>
-                      <span id="updated-nama"></span>
-                    </div>
-
-                    <div>
-                      <strong>Email:</strong>
-                      <span id="updated-email"></span>
-                    </div>
-                    <div>
-                      <strong>Phone:</strong>
-                      <span id="updated-phone"></span>
-                    </div>
-                    <div>
-                      <strong>Profile Image:</strong>
-                      <img
-                        width="40px"
-                        id="updated-profile-images"
-                        src=""
-                        alt="Profile Image"
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- profil end -->
-
-            <div class="card shadow mb-4">
-              <div class="card-header py-3">
-                <div class="font-weight-bold text-uppercase mb-1">
-                  Edit Profile
-                </div>
-                <div class="card-body">
-                  <hr />
-                  <div>
-                    <label for="name">Name:</label>
-                    <input class="form-control" type="text" id="name" />
-                  </div>
-                  <div>
-                    <label for="phone">Phone:</label>
-                    <input class="form-control" type="text" id="phone" />
-                  </div>
-
-                  <div class="mb-3">
-                    <label for="formFile" class="form-label"
-                      >Profile Image :</label
-                    >
-                    <input
-                      class="form-control"
-                      type="file"
-                      id="profile-image"
-                    />
-                  </div>
-
-                  <div>
-                    <a class="btn btn-primary form-control" id="save-btn">
-                      <i class="fas fa-check"> </i> submit</a
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- delete -->
-            <div class="card shadow mb-4">
-              <div class="card-header py-3">
-                <h5 class="font-weight-bold text-uppercase mb-1">
-                  delete acount
-                </h5>
+                <h6 class="m-0 font-weight-bold text-primary">
+                  DataTables Example
+                </h6>
               </div>
               <div class="card-body">
-                <p>
-                  Peringatan: Menghapus akun dashboard akan mengakibatkan
-                  kehilangan akses permanen ke semua data, pengaturan, dan
-                  informasi terkait. Tindakan ini tidak dapat dibatalkan dan
-                  semua informasi yang tersimpan akan dihapus secara permanen
-                </p>
-                <p>
-                  <code
-                    >Harap pastikan Anda telah melakukan backup atau menyalin
-                    semua data yang dianggap penting sebelum melanjutkan dengan
-                    menghapus akun dashboard. Jika Anda yakin akan tindakan ini,
-                    silakan pertimbangkan dengan hati-hati sebelum melanjutkan.
-                  </code>
-                </p>
-                <a class="btn btn-google form-control" id="delete-btn">
-                  <i class="fas fa-trash"></i> delete acount</a
-                >
+                <div class="table-responsive">
+                  <table
+                    class="table table-bordered"
+                    id="dataTable"
+                    width="100%"
+                    cellspacing="0"
+                  >
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>Age</th>
+                        <th>Start date</th>
+                        <th>Salary</th>
+                      </tr>
+                      <tr>
+                        <td>Haley Kennedy</td>
+                        <td>Senior Marketing Designer</td>
+                        <td>London</td>
+                        <td>43</td>
+                        <td>2012/12/18</td>
+                        <td>$313,500</td>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
               </div>
             </div>
 
-            <!-- end -->
+            <!-- /.container-fluid -->
           </div>
+
           <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
@@ -443,7 +393,50 @@
       </div>
     </div>
 
-    <!--sript -->
+    <!-- doen -->
+
+    <div style="display: none">
+      <h1>Agrolink</h1>
+      <div>
+        <label for="name">Name:</label>
+        <input type="text" id="name" />
+      </div>
+      <div>
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" />
+      </div>
+      <div>
+        <label for="profile-image">Profile Image:</label>
+        <input type="file" id="profile-image" />
+      </div>
+      <div>
+        <button id="save-btn">Save</button>
+        <button id="delete-btn">Delete</button>
+      </div>
+    </div>
+
+    <div id="updated-data-container " style="display: none">
+      <hr />
+      <div><strong>UID:</strong> <span id="updated-uid"></span></div>
+      <div>
+        <strong>Name:</strong>
+        <span id="updated-nama"></span>
+      </div>
+
+      <div>
+        <strong>Email:</strong>
+        <span id="updated-email"></span>
+      </div>
+      <div>
+        <strong>Phone:</strong>
+        <span id="updated-phone"></span>
+      </div>
+      <div>
+        <strong>Profile Image:</strong>
+        <img id="updated-profile-images" />
+      </div>
+    </div>
+
     <!-- wajib -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 
@@ -456,14 +449,23 @@
     <!-- grafik -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../scripts/main.js"></script>
-    <!-- 
-    Bootstrap core JavaScript -->
+    <!-- Custom scripts for all pages-->
+
+    <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>
   </body>
 </html>
