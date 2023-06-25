@@ -2757,11 +2757,11 @@ fieldset:disabled a.btn {
 }
 .btn-link {
   font-weight: 400;
-  color: #4e73df;
+  color: var(--green);
   text-decoration: none;
 }
 .btn-link:hover {
-  color: #224abe;
+  color: var(--green);
   text-decoration: underline;
 }
 .btn-link.focus,
@@ -2770,7 +2770,7 @@ fieldset:disabled a.btn {
 }
 .btn-link.disabled,
 .btn-link:disabled {
-  color: #858796;
+  color: var(--green);
   pointer-events: none;
 }
 .btn-group-lg > .btn,
@@ -5755,10 +5755,6 @@ a.close.disabled {
   color: #fff;
   text-decoration: none;
   outline: 0;
-  opacity: 0.9;
-}
-.carousel-control-prev {
-  left: 0;
 }
 .carousel-control-next {
   right: 0;
