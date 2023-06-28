@@ -181,30 +181,28 @@
                   class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
                   aria-labelledby="messagesDropdown"
                 >
+                  <h6 class="dropdown-header">Message Center</h6>
                   <div style="height: 300px; overflow-y: scroll">
-                    <h6 class="dropdown-header">Message Center</h6>
-
                     <div id="chat-container"></div>
-
+                  </div>
+                  <div>
+                    <div class="input-group mb-3">
+                      <span class="input-group-text">📨</span>
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="pesan"
+                        aria-label="pesan"
+                        id="message-input"
+                      />
+                    </div>
                     <div>
-                      <div class="input-group mb-3">
-                        <span class="input-group-text">📨</span>
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="pesan"
-                          aria-label="pesan"
-                          id="message-input"
-                        />
-                      </div>
-                      <div>
-                        <input
-                          class="btn-primary form-control w-20"
-                          type="submit"
-                          onclick="sendMessage()"
-                          value="Kirim"
-                        />
-                      </div>
+                      <input
+                        class="btn-primary form-control w-20"
+                        type="submit"
+                        onclick="sendMessage()"
+                        value="Kirim"
+                      />
                     </div>
                   </div>
                 </div>
