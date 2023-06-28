@@ -37,6 +37,49 @@ function performSearch() {
     });
   }
 }
+document.addEventListener("DOMContentLoaded", function () {
+  // Referensi elemen HTML
+  const registerForm = document.getElementById("registerForm");
+  const emailInput = document.getElementById("email-input");
+  const passwordInput = document.getElementById("password-input");
+  const nameInput = document.getElementById("name-input");
+  const errorMessage = document.getElementById("error-message");
+
+  // Event listener untuk form pendaftaran
+  registerForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const email = emailInput.value;
+    const password = passwordInput.value;
+    const name = nameInput.value;
+
+    // Registrasi dengan Firebase
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        // Registrasi berhasil
+        console.log("Registrasi berhasil");
+        const user = userCredential.user;
+
+        // Simpan nama pengguna ke database
+        const usersRef = firebase.database().ref("users");
+        const userRef = usersRef.child(user.uid);
+        userRef.set({
+          name: name,
+          email: email,
+        });
+
+        errorMessage.textContent = "";
+        alert("Registrasi Berhasil!");
+        window.location.href = "profil.html";
+      })
+      .catch((error) => {
+        // Tangani error saat registrasi
+        console.log("Registrasi gagal", error.message);
+        errorMessage.textContent = error.message;
+      });
+  });
+});
 
 firebase.auth().onAuthStateChanged((user) => {
   if (user) {
@@ -92,6 +135,7 @@ firebase.auth().onAuthStateChanged((user) => {
         }
       );
     });
+
     // Event listener untuk tombol Delete
     document.getElementById("delete-btn").addEventListener("click", () => {
       const confirmation = confirm("Apakah Anda yakin ingin menghapus akun?");

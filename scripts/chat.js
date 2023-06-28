@@ -67,8 +67,8 @@ function readMoreMessages() {
       messageElement.innerHTML = `
         <table class="table table-striped">
         <tr class="row ml-0">
-        <td><img class="img-profile rounded-circle border border-info" style="width:25px;height:25px;align-item:center;border:black" src="${messageData.imageUrl}" alt="User Image" /></td>
-        <td class="col"><span class="message-sender fw-bolder" style="font-size:20px">${messageData.sender}</span></td>
+        <td><img class="img-profile rounded-circle border" style="width:35px;height:35px;align-item:center;border:black" src="${messageData.imageUrl}" alt="User Image" /></td>
+        <td class="col"><span class="" style="font-size:20px;">${messageData.sender}</span></td>
         <td class="col">
           <a href="#" class="btn btn-danger btn-sm" onclick="deleteMessage('${messageKey}')">
           <i class="fas fa-trash"></i></a>
@@ -77,12 +77,9 @@ function readMoreMessages() {
         <tr><th>
         <span class="message-content ">pesan: ${messageData.message}</span>
           </th>
-        
         </tr>
         <hr/>
         </table>
-        
-        
       `;
 
       chatContainer.appendChild(messageElement);
