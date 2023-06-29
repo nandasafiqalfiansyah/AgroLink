@@ -8,8 +8,13 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="author" content="nanda safiq alfiansyah" />
 
+    <link
+      rel="shortcut icon"
+      href="./src/japan_carp_fish_koi_nature_water_icon_127323.ico"
+      type="image/x-icon"
+    />
     <title>Dashboard</title>
 
     <!-- Custom fonts for this template-->
@@ -45,7 +50,7 @@
           <div class="sidebar-brand-icon rotate-n-15">
             <i class="fa-solid fa-fish-fins"></i>
           </div>
-          <div class="sidebar-brand-text mx-3">ISMAO-IoT</div>
+          <div class="sidebar-brand-text mx-3">KOLAM-IoT</div>
         </a>
 
         <!-- Divider -->
@@ -159,6 +164,51 @@
                       </div>
                     </div>
                   </form>
+                </div>
+              </li>
+              <!-- Nav Item - Alerts -->
+              <li class="nav-item dropdown no-arrow mx-1">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="alertsDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i id="note" class="fas fa-bell fa-fw"></i>
+                  <!-- Counter - Alerts -->
+                  <span id="badge" class="badge badge-danger badge-counter"
+                    >1</span
+                  >
+                </a>
+                <!-- Dropdown - Alerts -->
+                <div
+                  class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                  aria-labelledby="alertsDropdown"
+                >
+                  <h6 class="dropdown-header">note Center</h6>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                      <div class="icon-circle bg-primary">
+                        <i class="fas fa-file-alt text-white"></i>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="small text-gray-500">Junie 29, 2023</div>
+                      <span class="font-weight-bold"
+                        >Apabila ingin mengaktifkan virture chat silakan
+                        lengkapi profil di -> seting -> edit profil
+                        terimakasih.</span
+                      >
+                    </div>
+                  </a>
+                  <a
+                    class="dropdown-item text-center small text-gray-500"
+                    href="#"
+                    >Show All
+                  </a>
                 </div>
               </li>
 
@@ -344,7 +394,48 @@
                               <div
                                 id="suhuProgressBar"
                                 class="progress-bar"
-                                style="background-color: #ffaa00"
+                                style="background-color: #f6c23e"
+                                role="progressbar"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i
+                          class="fas fa-clipboard-list fa-2x text-gray-300"
+                        ></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div
+                          class="text-xs font-weight-bold text-success text-uppercase mb-1"
+                        >
+                          tinggi air
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-auto">
+                            <div
+                              id="tinggiair"
+                              class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                            ></div>
+                          </div>
+                          <div class="col">
+                            <div class="progress progress-sm mr-2">
+                              <div
+                                id="tinggiairProgressBar"
+                                class="progress-bar"
+                                style="background-color: #1cc88a"
                                 role="progressbar"
                                 aria-valuemin="0"
                                 aria-valuemax="100"
@@ -375,7 +466,7 @@
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                   >
                     <h6 class="m-0 font-weight-bold text-primary">
-                      Earnings Overview
+                      System Overview
                     </h6>
                     <div class="dropdown no-arrow">
                       <a
@@ -422,7 +513,7 @@
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                   >
                     <h6 class="m-0 font-weight-bold text-primary">
-                      Indikator suhu
+                      Grafik System
                     </h6>
                     <div class="dropdown no-arrow">
                       <a
@@ -443,12 +534,10 @@
                         aria-labelledby="dropdownMenuLink"
                       >
                         <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">kelembapan</a>
+                        <a class="dropdown-item" href="#">Suhu</a>
+                        <a class="dropdown-item" href="#">tinggi air</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#"
-                          >Something else here</a
-                        >
                       </div>
                     </div>
                   </div>
@@ -459,13 +548,13 @@
                     </div>
                     <div class="mt-4 text-center small">
                       <span class="mr-2">
-                        <i class="fas fa-circle text-primary"></i> Direct
+                        <i class="fas fa-circle text-info"></i> kelembapan
                       </span>
                       <span class="mr-2">
-                        <i class="fas fa-circle text-success"></i> Social
+                        <i class="fas fa-circle text-warning"></i> Suhu
                       </span>
                       <span class="mr-2">
-                        <i class="fas fa-circle text-info"></i> Referral
+                        <i class="fas fa-circle text-success"></i> tinggiair
                       </span>
                     </div>
                   </div>
@@ -599,7 +688,7 @@
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="./scripts/sb-admin-2.min.js"></script>
     <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="js/demo/chart-area-demo.js"></script>
   </body>

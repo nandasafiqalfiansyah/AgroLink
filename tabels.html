@@ -8,9 +8,14 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="description" content="" />
-    <meta name="author" content="" />
+    <meta name="author" content="nanda safiq alfiansyah" />
 
     <title>tabels</title>
+    <link
+      rel="shortcut icon"
+      href="./src/japan_carp_fish_koi_nature_water_icon_127323.ico"
+      type="image/x-icon"
+    />
 
     <!-- Custom fonts for this template-->
     <!-- Custom styles for this page -->
@@ -57,7 +62,7 @@
           <div class="sidebar-brand-icon rotate-n-15">
             <i class="fa-solid fa-fish-fins"></i>
           </div>
-          <div class="sidebar-brand-text mx-3">ISMAO-IoT</div>
+          <div class="sidebar-brand-text mx-3">KOLAM-IoT</div>
         </a>
 
         <!-- Divider -->
@@ -173,6 +178,51 @@
                   </form>
                 </div>
               </li>
+              <!-- Nav Item - Alerts -->
+              <li class="nav-item dropdown no-arrow mx-1">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  id="alertsDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i id="note" class="fas fa-bell fa-fw"></i>
+                  <!-- Counter - Alerts -->
+                  <span id="badge" class="badge badge-danger badge-counter"
+                    >1</span
+                  >
+                </a>
+                <!-- Dropdown - Alerts -->
+                <div
+                  class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                  aria-labelledby="alertsDropdown"
+                >
+                  <h6 class="dropdown-header">Note Center</h6>
+                  <a class="dropdown-item d-flex align-items-center" href="#">
+                    <div class="mr-3">
+                      <div class="icon-circle bg-primary">
+                        <i class="fas fa-file-alt text-white"></i>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="small text-gray-500">Junie 29, 2023</div>
+                      <span class="font-weight-bold"
+                        >Apabila ingin mengaktifkan virture chat silakan
+                        lengkapi profil di -> seting -> edit profil
+                        terimakasih.</span
+                      >
+                    </div>
+                  </a>
+                  <a
+                    class="dropdown-item text-center small text-gray-500"
+                    href="#"
+                    >Show All
+                  </a>
+                </div>
+              </li>
 
               <!-- Nav Item - Messages -->
               <li class="nav-item dropdown no-arrow mx-1">
@@ -279,26 +329,39 @@
             <!-- Page Heading -->
             <h1 class="h3 mb-2 text-gray-800">Tables History</h1>
             <p class="mb-4">
-              Data akan update setiap 1 jam sekali
+              Data akan update setiap 15 menit sekali
               <a
                 style="display: none"
                 target="_blank"
                 href="https://datatables.net"
-                >official DataTables documentation</a
+                >DataTables documentation</a
               >.
             </p>
+            <a
+              id="downloadButton"
+              class="d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3"
+              ><i class="fas fa-download fa-sm text-white-50"></i> Download
+              Report Json</a
+            >
+
+            <button
+              class="d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3"
+              id="updateBtn"
+            >
+              Update Manual
+            </button>
+            <button
+              class="d-sm-inline-block btn btn-sm btn-primary shadow-sm mb-3"
+              id="clearBtn"
+            >
+              Clear Data
+            </button>
 
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
-              <a
-                id="downloadButton"
-                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
-                ><i class="fas fa-download fa-sm text-white-50"></i> Generate
-                Report Json</a
-              >
               <div class="card-header py-3">
                 <h6 class="m-0 font-weight-bold text-primary">
-                  DataTables Example
+                  Data Table History
                 </h6>
               </div>
               <div class="card-body">
@@ -309,6 +372,7 @@
                         <th>Tanggal</th>
                         <th>Suhu (°C)</th>
                         <th>Kelembapan (%)</th>
+                        <th>Tinggiair (cm)</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -453,7 +517,7 @@
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="./scripts/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
