@@ -1,12 +1,12 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyDz2p26Xy5ujcmnYyxpUOSOPCtAgTLFpbY",
-  authDomain: "agrolink-b98ed.firebaseapp.com",
-  databaseURL: "https://agrolink-b98ed-default-rtdb.firebaseio.com",
-  projectId: "agrolink-b98ed",
-  storageBucket: "agrolink-b98ed.appspot.com",
-  messagingSenderId: "54863140190",
-  appId: "1:54863140190:web:130befcdc872d33700ebcf",
-  measurementId: "G-DKBL14E0JS",
+  apiKey: "AIzaSyDW5F9NFxmCiydrU4xvnhrwB04XGxStvV4",
+  authDomain: "kecambah-hd-c46f3.firebaseapp.com",
+  databaseURL: "https://kecambah-hd-c46f3-default-rtdb.firebaseio.com",
+  projectId: "kecambah-hd-c46f3",
+  storageBucket: "kecambah-hd-c46f3.appspot.com",
+  messagingSenderId: "808821633061",
+  appId: "1:808821633061:web:397da80129ed0f038c0fcc",
+  measurementId: "G-S4QLRV0JK9",
 };
 // Inisialisasi Firebase
 firebase.initializeApp(firebaseConfig);
@@ -83,8 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const emailInput = document.getElementById("email-input");
   const passwordInput = document.getElementById("password-input");
   const nameInput = document.getElementById("name-input");
-  const phoneInput = document.getElementById("phone-input");
-  const imageInput = document.getElementById("image-input");
   const errorMessage = document.getElementById("error-message");
 
   // Event listener untuk form pendaftaran
@@ -93,8 +91,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const email = emailInput.value;
     const password = passwordInput.value;
     const name = nameInput.value;
-    const phone = phoneInput.value;
-    const image = imageInput.files[0]; // Retrieve the selected image file
 
     // Registrasi dengan Firebase
     firebase
@@ -105,32 +101,17 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Registrasi berhasil");
         const user = userCredential.user;
 
-        // Upload image to Firebase Storage
-        const storageRef = firebase.storage().ref();
-        const imageRef = storageRef.child(`images/${user.uid}/${image.name}`);
-        imageRef
-          .put(image)
-          .then(() => {
-            console.log("Image uploaded successfully");
+        // Simpan data pengguna ke database
+        const usersRef = firebase.database().ref("users");
+        const userRef = usersRef.child(user.uid);
+        userRef.set({
+          name: name,
+          email: email,
+        });
 
-            // Simpan data pengguna ke database
-            const usersRef = firebase.database().ref("users");
-            const userRef = usersRef.child(user.uid);
-            userRef.set({
-              name: name,
-              email: email,
-              phone: phone,
-              image: imageRef.fullPath, // Store the image's full path in the database
-            });
-
-            errorMessage.textContent = "";
-            alert("Registrasi Berhasil!");
-            window.location.href = "profil.html";
-          })
-          .catch((error) => {
-            console.log("Error uploading image:", error);
-            errorMessage.textContent = "Error uploading image";
-          });
+        errorMessage.textContent = "";
+        alert("Registrasi Berhasil!");
+        window.location.href = "profil.html";
       })
       .catch((error) => {
         // Tangani error saat registrasi
@@ -244,20 +225,36 @@ firebase.auth().onAuthStateChanged((user) => {
       //chart
       const database = firebase.database();
 
-      // Mendengarkan perubahan data pada node 'Hasil_Pembacaan'
-      database.ref("Hasil_Pembacaan").on("value", function (snapshot) {
+      database.ref().on("value", function (snapshot) {
         var data = snapshot.val();
-        var suhu = data ? data.suhu : null;
-        var kelembapan = data ? data.kelembapan : null;
+        var gelapData = data.Gelap;
+        var terangData = data.Terang;
 
-        // Memperbarui nilai suhu, kelembapan, dan tinggi air pada elemen HTML
-        var suhuElement = document.getElementById("suhu");
-        var kelembapanElement = document.getElementById("kelembapan");
+        var suhuGelap = gelapData ? gelapData.suhu : null;
+        var suhuTerang = terangData ? terangData.suhu : null;
 
-        if (suhuElement && kelembapanElement) {
-          suhuElement.innerHTML = suhu !== null ? suhu + " °C" : "-";
-          kelembapanElement.innerHTML =
-            kelembapan !== null ? kelembapan + " %" : "-";
+        var kelembapanGelap = gelapData ? gelapData.kelembapan : null;
+        var kelembapanTerang = terangData ? terangData.kelembapan : null;
+
+        // Memperbarui nilai suhu dan kelembapan untuk Gelap
+        var suhuGelapElement = document.getElementById("suhuGelap");
+        var kelembapanGelapElement = document.getElementById("kelembapanGelap");
+        if (suhuGelapElement && kelembapanGelapElement) {
+          suhuGelapElement.innerHTML =
+            suhuGelap !== null ? suhuGelap + " °C" : "-";
+          kelembapanGelapElement.innerHTML =
+            kelembapanGelap !== null ? kelembapanGelap + " %" : "-";
+        }
+
+        // Memperbarui nilai suhu dan kelembapan untuk Terang
+        var suhuTerangElement = document.getElementById("suhuTerang");
+        var kelembapanTerangElement =
+          document.getElementById("kelembapanTerang");
+        if (suhuTerangElement && kelembapanTerangElement) {
+          suhuTerangElement.innerHTML =
+            suhuTerang !== null ? suhuTerang + " °C" : "-";
+          kelembapanTerangElement.innerHTML =
+            kelembapanTerang !== null ? kelembapanTerang + " %" : "-";
         }
 
         // Menggambar grafik lingkaran
@@ -265,13 +262,25 @@ firebase.auth().onAuthStateChanged((user) => {
         var myChart = new Chart(ctx, {
           type: "doughnut",
           data: {
-            labels: ["Suhu", "Kelembapan"],
+            labels: [
+              "Suhu Gelap",
+              "Suhu Terang",
+              "Kelembapan Gelap",
+              "Kelembapan Terang",
+            ],
             datasets: [
               {
-                data: [suhu, kelembapan],
-                backgroundColor: ["#f6c23e", "#36b9cc"],
+                data: [
+                  suhuGelap,
+                  suhuTerang,
+                  kelembapanGelap,
+                  kelembapanTerang,
+                ],
+                backgroundColor: ["#1cc88a", "#f6c23e", "#4e73df", "#36b9cc"],
                 borderColor: "#ffffff",
                 borderWidth: 2,
+
+                hoverBorderColor: "rgba(234, 236, 244, 1)",
               },
             ],
           },
@@ -281,39 +290,124 @@ firebase.auth().onAuthStateChanged((user) => {
             legend: {
               display: false, // Menghilangkan label
             },
+            tooltips: {
+              backgroundColor: "rgb(255,255,255)",
+              bodyFontColor: "#858796",
+              borderColor: "#dddfeb",
+              borderWidth: 1,
+              xPadding: 15,
+              yPadding: 15,
+              displayColors: false,
+              caretPadding: 10,
+            },
+            cutoutPercentage: 80,
           },
         });
       });
 
       // Mendengarkan perubahan data pada node 'Hasil_Pembacaan'
-      database.ref("Hasil_Pembacaan").on("value", function (snapshot) {
+      database.ref().on("value", function (snapshot) {
         var data = snapshot.val();
-        var suhu = data ? data.suhu : null;
-        var kelembapan = data ? data.kelembapan : null;
+        var gelapData = data.Gelap;
+        var terangData = data.Terang;
+
+        // Memperbarui nilai dalam elemen div suhu Gelap
+        var gelapSuhuValueElement = document.getElementById("gelapSuhuValue");
+        if (gelapSuhuValueElement) {
+          gelapSuhuValueElement.innerHTML = gelapData
+            ? "" + gelapData.suhu + " °C"
+            : "";
+        }
+
+        // Memperbarui nilai dalam elemen div suhu Terang
+        var terangSuhuValueElement = document.getElementById("terangSuhuValue");
+        if (terangSuhuValueElement) {
+          terangSuhuValueElement.innerHTML = terangData
+            ? "" + terangData.suhu + " °C"
+            : "";
+        }
+
+        // Memperbarui nilai dalam elemen div kelembapan Gelap
+        var gelapKelembapanValueElement = document.getElementById(
+          "gelapKelembapanValue"
+        );
+        if (gelapKelembapanValueElement) {
+          gelapKelembapanValueElement.innerHTML = gelapData
+            ? "" + gelapData.kelembapan + " %"
+            : "";
+        }
+
+        // Memperbarui nilai dalam elemen div kelembapan Terang
+        var terangKelembapanValueElement = document.getElementById(
+          "terangKelembapanValue"
+        );
+        if (terangKelembapanValueElement) {
+          terangKelembapanValueElement.innerHTML = terangData
+            ? "" + terangData.kelembapan + " %"
+            : "";
+        }
 
         // Menghitung persentase width berdasarkan data suhu
-        var suhuPersentase = suhu !== null ? (suhu / 100) * 100 : 0;
+        var gelapSuhuPersentase = gelapData ? (gelapData.suhu / 100) * 100 : 0;
+        var terangSuhuPersentase = terangData
+          ? (terangData.suhu / 100) * 100
+          : 0;
 
-        // Mengubah style width pada elemen div progress bar suhu
-        var suhuProgressBar = document.getElementById("suhuProgressBar");
-        if (suhuProgressBar) {
-          suhuProgressBar.style.width = suhuPersentase + "%";
-          suhuProgressBar.setAttribute("aria-valuenow", suhuPersentase);
+        // Mengubah style width pada elemen div progress bar suhu Gelap
+        var gelapSuhuProgressBar = document.getElementById(
+          "gelapSuhuProgressBar"
+        );
+        if (gelapSuhuProgressBar) {
+          gelapSuhuProgressBar.style.width = gelapSuhuPersentase + "%";
+          gelapSuhuProgressBar.setAttribute(
+            "aria-valuenow",
+            gelapSuhuPersentase
+          );
+        }
+
+        // Mengubah style width pada elemen div progress bar suhu Terang
+        var terangSuhuProgressBar = document.getElementById(
+          "terangSuhuProgressBar"
+        );
+        if (terangSuhuProgressBar) {
+          terangSuhuProgressBar.style.width = terangSuhuPersentase + "%";
+          terangSuhuProgressBar.setAttribute(
+            "aria-valuenow",
+            terangSuhuPersentase
+          );
         }
 
         // Menghitung persentase width berdasarkan data kelembapan
-        var kelembapanPersentase =
-          kelembapan !== null ? (kelembapan / 100) * 100 : 0;
+        var gelapKelembapanPersentase = gelapData
+          ? (gelapData.kelembapan / 100) * 100
+          : 0;
+        var terangKelembapanPersentase = terangData
+          ? (terangData.kelembapan / 100) * 100
+          : 0;
 
-        // Mengubah style width pada elemen div progress bar kelembapan
-        var kelembapanProgressBar = document.getElementById(
-          "kelembapanProgressBar"
+        // Mengubah style width pada elemen div progress bar kelembapan Gelap
+        var gelapKelembapanProgressBar = document.getElementById(
+          "gelapKelembapanProgressBar"
         );
-        if (kelembapanProgressBar) {
-          kelembapanProgressBar.style.width = kelembapanPersentase + "%";
-          kelembapanProgressBar.setAttribute(
+        if (gelapKelembapanProgressBar) {
+          gelapKelembapanProgressBar.style.width =
+            gelapKelembapanPersentase + "%";
+          gelapKelembapanProgressBar.setAttribute(
             "aria-valuenow",
-            kelembapanPersentase
+            gelapKelembapanPersentase
+          );
+        }
+
+        // Mengubah style width pada elemen div progress bar kelembapan Terang
+        var terangKelembapanProgressBar = document.getElementById(
+          "terangKelembapanProgressBar"
+        );
+        if (terangKelembapanProgressBar) {
+          terangKelembapanProgressBar.style.width =
+            terangKelembapanPersentase + "%";
+          terangKelembapanProgressBar.setAttribute(
+            "aria-valuenow",
+            terangKelembapanPersentase
           );
         }
       });
@@ -326,16 +420,19 @@ firebase.auth().onAuthStateChanged((user) => {
 
         // Mengubah objek data menjadi array
         if (data) {
-          riwayatArray = Object.keys(data).map(function (key) {
-            return {
-              timestamp: key,
-              suhu: data[key].suhu,
-              kelembapan: data[key].kelembapan,
+          Object.keys(data).forEach(function (timestamp) {
+            var riwayatData = {
+              timestamp: timestamp,
+              kategori: data[timestamp].kategori,
+              suhu: data[timestamp].suhu,
+              kelembapan: data[timestamp].kelembapan,
+              tanggal: data[timestamp].tanggal,
             };
+            riwayatArray.push(riwayatData);
           });
         }
 
-        // Memperbarui nilai suhu, kelembapan, dan tinggi air pada elemen HTML
+        // Memperbarui nilai suhu, kelembapan,
         var suhuElement = document.getElementById("suhu");
         var kelembapanElement = document.getElementById("kelembapan");
 
@@ -361,13 +458,19 @@ firebase.auth().onAuthStateChanged((user) => {
                 return new Date(parseInt(data)).toLocaleString();
               },
             },
+            { data: "kategori" },
             { data: "suhu" },
             { data: "kelembapan" },
+            { data: "tanggal" },
           ],
         });
+
+        // Mengatur panjang maksimum tabel menjadi 10 baris
+        table.page.len(10).draw();
       });
 
       // Mendapatkan data riwayat dari Firebase Database
+
       // Mendapatkan data riwayat dari Firebase Database
       database.ref("riwayat").on("value", function (snapshot) {
         var data = snapshot.val();
@@ -375,66 +478,117 @@ firebase.auth().onAuthStateChanged((user) => {
 
         // Mengubah objek data menjadi array
         if (data) {
-          riwayatArray = Object.entries(data).map(([key, value]) => ({
-            timestamp: parseInt(key),
-            suhu: value.suhu,
-            kelembapan: value.kelembapan,
-          }));
+          Object.entries(data).forEach(([key, value]) => {
+            var riwayat = {
+              timestamp: parseInt(key),
+              suhu: value.suhu,
+              kelembapan: value.kelembapan,
+              kategori: value.kategori || "",
+              tanggal: value.tanggal || "",
+            };
+
+            riwayatArray.push(riwayat);
+          });
         }
 
         // Melakukan pengolahan data dan membuat grafik area
-        createAreaChart(riwayatArray);
+        createCombinedChart(riwayatArray);
       });
 
-      function createAreaChart(riwayatArray) {
-        // Membuat array timestamps, suhu, kelembapan, dan ketinggian berdasarkan riwayatArray
+      function createCombinedChart(riwayatArray) {
+        // Membuat array timestamps, suhu terang, suhu gelap, kelembapan terang, kelembapan gelap, dan tanggal berdasarkan riwayatArray
         var timestamps = [];
-        var suhuData = [];
-        var kelembapanData = [];
+        var suhuTerangData = [];
+        var suhuGelapData = [];
+        var kelembapanTerangData = [];
+        var kelembapanGelapData = [];
+        var tanggalData = [];
 
         riwayatArray.forEach(function (riwayat) {
           var timestamp = new Date(parseInt(riwayat.timestamp));
           timestamps.push(timestamp);
-          suhuData.push(riwayat.suhu);
-          kelembapanData.push(riwayat.kelembapan);
+
+          if (riwayat.kategori === "Terang") {
+            suhuTerangData.push(riwayat.suhu);
+            kelembapanTerangData.push(riwayat.kelembapan);
+          } else if (riwayat.kategori === "Gelap") {
+            suhuGelapData.push(riwayat.suhu);
+            kelembapanGelapData.push(riwayat.kelembapan);
+          }
+
+          tanggalData.push(riwayat.tanggal);
         });
 
-        // Area Chart Example
-        var ctx = document.getElementById("myAreaChart").getContext("2d");
-        var myLineChart = new Chart(ctx, {
+        // Combined Chart Example
+        var ctxCombined = document
+          .getElementById("myAreaChart")
+          .getContext("2d");
+        var myCombinedChart = new Chart(ctxCombined, {
           type: "line",
           data: {
             labels: timestamps,
             datasets: [
               {
-                label: "Kelembapan",
+                label: "Suhu Terang",
                 lineTension: 0.3,
-                backgroundColor: "rgba(255, 99, 132, 0.05)",
-                borderColor: "#36b9cc",
-                pointRadius: 3,
-                pointBackgroundColor: "#36b9cc",
-                pointBorderColor: "#36b9cc",
-                pointHoverRadius: 3,
-                pointHoverBackgroundColor: "#36b9cc",
-                pointHoverBorderColor: "#36b9cc",
-                pointHitRadius: 10,
-                pointBorderWidth: 2,
-                data: kelembapanData,
-              },
-              {
-                label: "Suhu",
-                lineTension: 0.3,
-                backgroundColor: "rgba(78, 115, 223, 0.05)",
+                backgroundColor: "rgba(255, 255, 0, 0.05)",
                 borderColor: "#f6c23e",
                 pointRadius: 3,
                 pointBackgroundColor: "#f6c23e",
-                pointBorderColor: "#f6c23e",
+                pointBorderColor: "#f6c23f",
                 pointHoverRadius: 3,
-                pointHoverBackgroundColor: "#f6c23e",
-                pointHoverBorderColor: "#f6c23e",
+                pointHoverBackgroundColor: "#f6c23f",
+                pointHoverBorderColor: "#f6c23f",
                 pointHitRadius: 10,
                 pointBorderWidth: 2,
-                data: suhuData,
+                data: suhuTerangData,
+              },
+              {
+                label: "Suhu Gelap",
+                lineTension: 0.3,
+                backgroundColor: "rgba(0, 255, 255, 0.05)",
+                borderColor: "#1cc88a",
+                pointRadius: 3,
+                pointBackgroundColor: "#1cc88a",
+                pointBorderColor: "#1cc88a",
+                pointHoverRadius: 3,
+                pointHoverBackgroundColor: "#1cc88a",
+                borderColor: "#1cc88a",
+                pointHoverBackgroundColor: "#1cc88a",
+                pointHoverBorderColor: "#1cc88a",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                data: suhuGelapData,
+              },
+              {
+                label: "Kelembapan Terang",
+                lineTension: 0.3,
+                backgroundColor: "rgba(0, 99, 255, 0.05)",
+                borderColor: "#36b9cc ",
+                pointRadius: 3,
+                pointBackgroundColor: "#36b9cc ",
+                pointBorderColor: "#36b9cc ",
+                pointHoverRadius: 3,
+                pointHoverBackgroundColor: "#36b9cc ",
+                pointHoverBorderColor: "#36b9cc ",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                data: kelembapanTerangData,
+              },
+              {
+                label: "Kelembapan Gelap",
+                lineTension: 0.3,
+                backgroundColor: "rgba(255, 0, 255, 0.05)",
+                borderColor: "#4e73df",
+                pointRadius: 3,
+                pointBackgroundColor: "#4e73df",
+                pointBorderColor: "#4e73df",
+                pointHoverRadius: 3,
+                pointHoverBackgroundColor: "#4e73df",
+                pointHoverBorderColor: "#4e73df",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                data: kelembapanGelapData,
               },
             ],
           },
@@ -448,21 +602,13 @@ firebase.auth().onAuthStateChanged((user) => {
                 bottom: 0,
               },
             },
+            legend: {
+              display: false,
+            },
             scales: {
               xAxes: [
                 {
-                  display: false, // Menghilangkan label pada sumbu x
-                },
-              ],
-              yAxes: [
-                {
-                  display: true,
-                  ticks: {
-                    beginAtZero: true,
-                  },
-                  scaleLabel: {
-                    display: true,
-                  },
+                  display: false,
                 },
               ],
             },
@@ -470,15 +616,14 @@ firebase.auth().onAuthStateChanged((user) => {
         });
       }
 
-      //UPDATE DATA HISTORY SETIAP 1 JAM
-
+      //UPDATE DATA HISTORY SETIAP 15 menit
       const storageRef = firebase.storage().ref();
       const folderName = "data";
       const maxDataCount = 100;
 
       setInterval(function () {
         updateData();
-      }, 90000); // Setiap 5 detik
+      }, 30000); // Setiap 15 menit
 
       const updateBtn = document.getElementById("updateBtn");
       updateBtn.addEventListener("click", updateData);
@@ -487,35 +632,49 @@ firebase.auth().onAuthStateChanged((user) => {
       clearBtn.addEventListener("click", clearData);
 
       function updateData() {
-        database.ref("Hasil_Pembacaan").once("value", function (snapshot) {
-          var data = snapshot.val();
-          var suhu = data ? data.suhu : null;
-          var kelembapan = data ? data.kelembapan : null;
+        const database = firebase.database(); // Tambahkan ini
+        const gelapRef = database.ref("Gelap");
+        const terangRef = database.ref("Terang");
 
-          saveHistory(suhu, kelembapan);
+        gelapRef.once("value", function (gelapSnapshot) {
+          var gelapData = gelapSnapshot.val();
+          var gelapSuhu = gelapData ? gelapData.suhu : null;
+          var gelapKelembapan = gelapData ? gelapData.kelembapan : null;
+
+          saveHistory("Gelap", gelapSuhu, gelapKelembapan);
+        });
+
+        terangRef.once("value", function (terangSnapshot) {
+          var terangData = terangSnapshot.val();
+          var terangSuhu = terangData ? terangData.suhu : null;
+          var terangKelembapan = terangData ? terangData.kelembapan : null;
+
+          saveHistory("Terang", terangSuhu, terangKelembapan);
         });
       }
 
       function clearData() {
+        const database = firebase.database(); // Tambahkan ini
         const historyRef = database.ref("riwayat");
         historyRef
           .orderByKey()
           .limitToFirst(maxDataCount)
           .once("value", function (snapshot) {
-            var updates = {};
+            const updates = {};
             snapshot.forEach(function (childSnapshot) {
               updates[childSnapshot.key] = null;
             });
-            historyRef.update(updates);
-            console.log("Data cleared successfully");
+            historyRef.update(updates).then(() => {
+              console.log("Data cleared successfully");
+            });
           })
           .catch((error) => {
             console.log("Failed to clear data:", error);
           });
       }
 
-      function saveHistory(suhu, kelembapan, tinggiair) {
-        const database = firebase.database();
+      function saveHistory(kategori, suhu, kelembapan) {
+        const database = firebase.database(); // Tambahkan ini
         const historyRef = database.ref("riwayat");
         const timestamp = Date.now();
         const date = new Date(timestamp);
@@ -526,6 +685,7 @@ firebase.auth().onAuthStateChanged((user) => {
           .child(timestamp)
           .set({
             tanggal: tanggal,
+            kategori: kategori, // Mengubah suhu menjadi kategori
             suhu: suhu,
             kelembapan: kelembapan,
           })
@@ -535,6 +695,7 @@ firebase.auth().onAuthStateChanged((user) => {
             // Menyimpan data ke folder "data" di Firebase Storage
             const dataString = JSON.stringify({
               tanggal: tanggal,
+              kategori: kategori, // Mengubah suhu menjadi kategori
               suhu: suhu,
               kelembapan: kelembapan,
             });
@@ -552,8 +713,7 @@ firebase.auth().onAuthStateChanged((user) => {
                   .limitToFirst(maxDataCount)
                   .once("value", function (snapshot) {
                     if (snapshot.numChildren() >= maxDataCount) {
-                      const oldestKey =
-                        snapshot.val()[Object.keys(snapshot.val())[0]];
+                      const oldestKey = Object.keys(snapshot.val())[0];
                       const updates = {};
                       updates[oldestKey] = null;
                       historyRef.update(updates).then(() => {
@@ -568,25 +728,6 @@ firebase.auth().onAuthStateChanged((user) => {
           })
           .catch((error) => {
             console.log("Failed to save history:", error);
-          });
-      }
-
-      function clearData() {
-        const historyRef = database.ref("riwayat");
-        historyRef
-          .orderByKey()
-          .limitToFirst(maxDataCount)
-          .once("value", function (snapshot) {
-            const updates = {};
-            snapshot.forEach(function (childSnapshot) {
-              updates[childSnapshot.key] = null;
-            });
-            historyRef.update(updates).then(() => {
-              console.log("Data cleared successfully");
-            });
-          })
-          .catch((error) => {
-            console.log("Failed to clear data:", error);
           });
       }
     });

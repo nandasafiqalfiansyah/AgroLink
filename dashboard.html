@@ -336,19 +336,19 @@
                         <div
                           class="text-xs font-weight-bold text-info text-uppercase mb-1"
                         >
-                          kelembapan
+                          kelembapan (Terang)
                         </div>
                         <div class="row no-gutters align-items-center">
                           <div class="col-auto">
                             <div
-                              id="kelembapan"
+                              id="terangKelembapanValue"
                               class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
                             ></div>
                           </div>
                           <div class="col">
                             <div class="progress progress-sm mr-2">
                               <div
-                                id="kelembapanProgressBar"
+                                id="terangKelembapanProgressBar"
                                 class="progress-bar bg-info"
                                 role="progressbar"
                                 aria-valuemin="0"
@@ -376,21 +376,100 @@
                         <div
                           class="text-xs font-weight-bold text-warning text-uppercase mb-1"
                         >
-                          suhu
+                          suhu (Terang)
                         </div>
                         <div class="row no-gutters align-items-center">
                           <div class="col-auto">
                             <div
-                              id="suhu"
+                              id="terangSuhuValue"
                               class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
                             ></div>
                           </div>
                           <div class="col">
                             <div class="progress progress-sm mr-2">
                               <div
-                                id="suhuProgressBar"
-                                class="progress-bar"
-                                style="background-color: #f6c23e"
+                                id="terangSuhuProgressBar"
+                                class="progress-bar bg-warning"
+                                role="progressbar"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i
+                          class="fas fa-clipboard-list fa-2x text-gray-300"
+                        ></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Earnings (Monthly) Card Example -->
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div
+                          class="text-xs font-weight-bold text-primary text-uppercase mb-1"
+                        >
+                          kelembapan (Gelap)
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-auto">
+                            <div
+                              id="gelapKelembapanValue"
+                              class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                            ></div>
+                          </div>
+                          <div class="col">
+                            <div class="progress progress-sm mr-2">
+                              <div
+                                id="gelapKelembapanProgressBar"
+                                class="progress-bar bg-primary"
+                                role="progressbar"
+                                aria-valuemin="0"
+                                aria-valuemax="100"
+                              ></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-auto">
+                        <i
+                          class="fas fa-clipboard-list fa-2x text-gray-300"
+                        ></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+                        <div
+                          class="text-xs font-weight-bold text-success text-uppercase mb-1"
+                        >
+                          suhu (gelap)
+                        </div>
+                        <div class="row no-gutters align-items-center">
+                          <div class="col-auto">
+                            <div
+                              id="gelapSuhuValue"
+                              class="h5 mb-0 mr-3 font-weight-bold text-gray-800"
+                            ></div>
+                          </div>
+                          <div class="col">
+                            <div class="progress progress-sm mr-2">
+                              <div
+                                id="gelapSuhuProgressBar"
+                                class="progress-bar bg-success"
                                 role="progressbar"
                                 aria-valuemin="0"
                                 aria-valuemax="100"
@@ -420,9 +499,7 @@
                   <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                   >
-                    <h6 class="m-0 font-weight-bold text-primary">
-                      System Overview
-                    </h6>
+                    <h6 class="m-0 font-weight-bold">System Overview</h6>
                     <div class="dropdown no-arrow">
                       <a
                         class="dropdown-toggle"
@@ -467,9 +544,7 @@
                   <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between"
                   >
-                    <h6 class="m-0 font-weight-bold text-primary">
-                      Grafik System
-                    </h6>
+                    <h6 class="m-0 font-weight-bold">Grafik System</h6>
                     <div class="dropdown no-arrow">
                       <a
                         class="dropdown-toggle"
@@ -489,8 +564,12 @@
                         aria-labelledby="dropdownMenuLink"
                       >
                         <div class="dropdown-header">Dropdown Header:</div>
-                        <a class="dropdown-item" href="#">kelembapan</a>
-                        <a class="dropdown-item" href="#">Suhu</a>
+                        <a class="dropdown-item" href="#"
+                          >kelembapan (Terang)</a
+                        >
+                        <a class="dropdown-item" href="#">Suhu (Terang)</a>
+                        <a class="dropdown-item" href="#">kelembapan (Gelap)</a>
+                        <a class="dropdown-item" href="#">Suhu (Gelap)</a>
 
                         <div class="dropdown-divider"></div>
                       </div>
@@ -503,10 +582,18 @@
                     </div>
                     <div class="mt-4 text-center small">
                       <span class="mr-2">
-                        <i class="fas fa-circle text-info"></i> kelembapan
+                        <i class="fas fa-circle text-info"></i> K Terang
                       </span>
                       <span class="mr-2">
-                        <i class="fas fa-circle text-warning"></i> Suhu
+                        <i class="fas fa-circle text-primary"></i> K Gelap
+                      </span>
+                      <span class="mr-2">
+                        <i class="fas fa-circle text-warning"></i>
+                        S Terang
+                      </span>
+                      <span class="mr-2">
+                        <i class="fas fa-circle text-success"></i>
+                        S Gelap
                       </span>
                     </div>
                   </div>
@@ -517,16 +604,6 @@
           <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
-
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>Copyright &copy; nsa</span>
-            </div>
-          </div>
-        </footer>
-        <!-- End of Footer -->
       </div>
       <!-- End of Content Wrapper -->
     </div>
