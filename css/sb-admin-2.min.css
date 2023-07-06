@@ -5965,7 +5965,7 @@ a.bg-light:focus,
 a.bg-light:hover,
 button.bg-light:focus,
 button.bg-light:hover {
-  background-color: #d4daed !important;
+  background-color: var(--green) !important;
 }
 .bg-dark {
   background-color: #5a5c69 !important;
@@ -8940,7 +8940,7 @@ a.text-dark:hover {
   }
   blockquote,
   pre {
-    border: 1px solid #b7b9cc;
+    border: 1px solid var(--green);
     page-break-inside: avoid;
   }
   thead {

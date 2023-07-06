@@ -616,14 +616,14 @@ firebase.auth().onAuthStateChanged((user) => {
         });
       }
 
-      //UPDATE DATA HISTORY SETIAP 15 menit
+      // Setiap 20 detik
       const storageRef = firebase.storage().ref();
       const folderName = "data";
       const maxDataCount = 100;
 
       setInterval(function () {
         updateData();
-      }, 900000); // Setiap 15 menit
+      }, 20000); // Setiap 20 detik
 
       const updateBtn = document.getElementById("updateBtn");
       updateBtn.addEventListener("click", updateData);
