@@ -11,18 +11,17 @@
       integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
       crossorigin="anonymous"
     />
-    <link
-      rel="shortcut icon"
-      href="./src/japan_carp_fish_koi_nature_water_icon_127323.ico"
-      type="image/x-icon"
-    />
+    <link rel="shortcut icon" href="./src/ico.png" type="image/x-icon" />
+    <script
+      src="https://kit.fontawesome.com/9756cacafc.js"
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <div class="form-container">
-      <h2>Registrasi Pengguna</h2>
+      <h2><i class="fa-solid fa-seedling"></i>Registration</h2>
       <hr />
       <form id="registerForm">
-        <input type="text" id="name-input" placeholder="Nama" required />
         <input type="email" id="email-input" placeholder="Email" required />
         <input
           type="password"
@@ -30,12 +29,27 @@
           placeholder="Password"
           required
         />
+        <input
+          type="text"
+          id="name-input"
+          placeholder="Nama Lengkap"
+          required
+        />
+        <input
+          type="tel"
+          id="phone-input"
+          placeholder="Nomor Telepon"
+          required
+        />
+        <input type="file" id="image-input" accept="image/*" required />
 
         <input type="submit" value="Daftar" />
 
         <p class="error" id="error-message"></p>
 
-        <p><a href="./index.html">Login</a></p>
+        <p class="link-container">
+          <a class="link-page" href="./index.html">Back to Login </a>
+        </p>
       </form>
     </div>
     <button id="downloadButton" style="display: none">Unduh Riwayat</button>
