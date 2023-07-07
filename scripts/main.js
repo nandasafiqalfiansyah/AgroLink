@@ -645,28 +645,37 @@ firebase.auth().onAuthStateChanged((user) => {
       }
 
       function clearData() {
-        const database = firebase.database();
-        const historyRef = database.ref("riwayat");
-        historyRef
-          .orderByKey()
-          .limitToFirst(maxDataCount)
-          .once("value", function (snapshot) {
-            const updates = {};
-            snapshot.forEach(function (childSnapshot) {
-              updates[childSnapshot.key] = null;
-            });
-            historyRef
-              .update(updates)
-              .then(() => {
-                console.log("Data cleared successfully");
-              })
-              .catch((error) => {
-                console.log("Failed to clear data:", error);
+        // Menampilkan peringatan untuk memastikan pengguna ingin menghapus data
+        const confirmation = confirm("Apakah Anda yakin ingin menghapus data?");
+
+        if (confirmation) {
+          const database = firebase.database();
+          const historyRef = database.ref("riwayat");
+
+          historyRef
+            .orderByKey()
+            .limitToFirst(maxDataCount)
+            .once("value", function (snapshot) {
+              const updates = {};
+              snapshot.forEach(function (childSnapshot) {
+                updates[childSnapshot.key] = null;
               });
-          })
-          .catch((error) => {
-            console.log("Failed to clear data:", error);
-          });
+
+              historyRef
+                .update(updates)
+                .then(() => {
+                  console.log("Data cleared successfully");
+                })
+                .catch((error) => {
+                  console.log("Failed to clear data:", error);
+                });
+            })
+            .catch((error) => {
+              console.log("Failed to clear data:", error);
+            });
+        } else {
+          console.log("Data deletion canceled");
+        }
       }
 
       function saveHistory(kategori, suhu, kelembapan) {
