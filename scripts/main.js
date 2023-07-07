@@ -470,8 +470,6 @@ firebase.auth().onAuthStateChanged((user) => {
       });
 
       // Mendapatkan data riwayat dari Firebase Database
-
-      // Mendapatkan data riwayat dari Firebase Database
       database.ref("riwayat").on("value", function (snapshot) {
         var data = snapshot.val();
         var riwayatArray = [];
@@ -593,15 +591,9 @@ firebase.auth().onAuthStateChanged((user) => {
             ],
           },
           options: {
+            responsive: true,
             maintainAspectRatio: false,
-            layout: {
-              padding: {
-                left: 10,
-                right: 25,
-                top: 25,
-                bottom: 0,
-              },
-            },
+
             legend: {
               display: false,
             },
@@ -616,14 +608,13 @@ firebase.auth().onAuthStateChanged((user) => {
         });
       }
 
-      // Setiap 20 detik
       const storageRef = firebase.storage().ref();
       const folderName = "data";
       const maxDataCount = 100;
 
       setInterval(function () {
         updateData();
-      }, 20000); // Setiap 20 detik
+      }, 120000); // Setiap 2 menit
 
       const updateBtn = document.getElementById("updateBtn");
       updateBtn.addEventListener("click", updateData);
@@ -632,7 +623,7 @@ firebase.auth().onAuthStateChanged((user) => {
       clearBtn.addEventListener("click", clearData);
 
       function updateData() {
-        const database = firebase.database(); // Tambahkan ini
+        const database = firebase.database();
         const gelapRef = database.ref("Gelap");
         const terangRef = database.ref("Terang");
 
@@ -654,7 +645,7 @@ firebase.auth().onAuthStateChanged((user) => {
       }
 
       function clearData() {
-        const database = firebase.database(); // Tambahkan ini
+        const database = firebase.database();
         const historyRef = database.ref("riwayat");
         historyRef
           .orderByKey()
@@ -664,9 +655,14 @@ firebase.auth().onAuthStateChanged((user) => {
             snapshot.forEach(function (childSnapshot) {
               updates[childSnapshot.key] = null;
             });
-            historyRef.update(updates).then(() => {
-              console.log("Data cleared successfully");
-            });
+            historyRef
+              .update(updates)
+              .then(() => {
+                console.log("Data cleared successfully");
+              })
+              .catch((error) => {
+                console.log("Failed to clear data:", error);
+              });
           })
           .catch((error) => {
             console.log("Failed to clear data:", error);
@@ -674,18 +670,20 @@ firebase.auth().onAuthStateChanged((user) => {
       }
 
       function saveHistory(kategori, suhu, kelembapan) {
-        const database = firebase.database(); // Tambahkan ini
+        const database = firebase.database();
         const historyRef = database.ref("riwayat");
         const timestamp = Date.now();
         const date = new Date(timestamp);
         const tanggal = date.toLocaleDateString();
+        const time = date.toLocaleTimeString();
 
         // Menyimpan data ke Firebase Database
         historyRef
           .child(timestamp)
           .set({
             tanggal: tanggal,
-            kategori: kategori, // Mengubah suhu menjadi kategori
+            waktu: time, // Tambahkan waktu
+            kategori: kategori,
             suhu: suhu,
             kelembapan: kelembapan,
           })
@@ -695,7 +693,8 @@ firebase.auth().onAuthStateChanged((user) => {
             // Menyimpan data ke folder "data" di Firebase Storage
             const dataString = JSON.stringify({
               tanggal: tanggal,
-              kategori: kategori, // Mengubah suhu menjadi kategori
+              waktu: time, // Tambahkan waktu
+              kategori: kategori,
               suhu: suhu,
               kelembapan: kelembapan,
             });
@@ -716,9 +715,14 @@ firebase.auth().onAuthStateChanged((user) => {
                       const oldestKey = Object.keys(snapshot.val())[0];
                       const updates = {};
                       updates[oldestKey] = null;
-                      historyRef.update(updates).then(() => {
-                        console.log("Old entry removed successfully");
-                      });
+                      historyRef
+                        .update(updates)
+                        .then(() => {
+                          console.log("Old entry removed successfully");
+                        })
+                        .catch((error) => {
+                          console.log("Failed to remove old entry:", error);
+                        });
                     }
                   });
               })

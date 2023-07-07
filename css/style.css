@@ -7,7 +7,10 @@ body {
     url(../src/1.png);
   background-size: cover;
 }
-
+#myAreaChart {
+  width: 500px !important;
+  height: 300px !important;
+}
 .form-container {
   max-width: 400px;
   margin: 5em auto;
