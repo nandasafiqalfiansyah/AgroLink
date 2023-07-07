@@ -610,11 +610,11 @@ firebase.auth().onAuthStateChanged((user) => {
 
       const storageRef = firebase.storage().ref();
       const folderName = "data";
-      const maxDataCount = 1000000;
+      const maxDataCount = 100000;
 
       setInterval(function () {
         updateData();
-      }, 300000); // Setiap 2 menit
+      }, 300000); // Setiap 5 menit
 
       const updateBtn = document.getElementById("updateBtn");
       updateBtn.addEventListener("click", updateData);
