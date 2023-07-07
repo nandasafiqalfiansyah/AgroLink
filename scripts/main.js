@@ -610,7 +610,7 @@ firebase.auth().onAuthStateChanged((user) => {
 
       const storageRef = firebase.storage().ref();
       const folderName = "data";
-      const maxDataCount = 100;
+      const maxDataCount = 1000000;
 
       setInterval(function () {
         updateData();
