@@ -614,7 +614,7 @@ firebase.auth().onAuthStateChanged((user) => {
 
       setInterval(function () {
         updateData();
-      }, 300000); // Setiap 5 menit
+      }, 180000);
 
       const updateBtn = document.getElementById("updateBtn");
       updateBtn.addEventListener("click", updateData);
