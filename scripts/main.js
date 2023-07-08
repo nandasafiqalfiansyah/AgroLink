@@ -614,7 +614,7 @@ firebase.auth().onAuthStateChanged((user) => {
 
       setInterval(function () {
         updateData();
-      }, 180000);
+      }, 300000);
 
       const updateBtn = document.getElementById("updateBtn");
       updateBtn.addEventListener("click", updateData);
