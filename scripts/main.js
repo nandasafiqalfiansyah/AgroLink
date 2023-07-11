@@ -222,9 +222,8 @@ firebase.auth().onAuthStateChanged((user) => {
           userData.imageUrl || ""; // Menampilkan gambar profil
       }
 
-      //chart
-      const database = firebase.database();
-
+      //CHART DATA SYSTEM
+      // Mendengarkan perubahan data pada node 'Hasil_Pembacaan'
       database.ref().on("value", function (snapshot) {
         var data = snapshot.val();
         var gelapData = data.Gelap;
@@ -235,6 +234,9 @@ firebase.auth().onAuthStateChanged((user) => {
 
         var kelembapanGelap = gelapData ? gelapData.kelembapan : null;
         var kelembapanTerang = terangData ? terangData.kelembapan : null;
+
+        var cahayaGelap = gelapData ? gelapData.cahaya : null;
+        var cahayaTerang = terangData ? terangData.cahaya : null;
 
         // Memperbarui nilai suhu dan kelembapan untuk Gelap
         var suhuGelapElement = document.getElementById("suhuGelap");
@@ -257,6 +259,20 @@ firebase.auth().onAuthStateChanged((user) => {
             kelembapanTerang !== null ? kelembapanTerang + " %" : "-";
         }
 
+        // Memperbarui nilai cahaya untuk Gelap
+        var cahayaGelapElement = document.getElementById("cahayaGelap");
+        if (cahayaGelapElement) {
+          cahayaGelapElement.innerHTML =
+            cahayaGelap !== null ? cahayaGelap : "-";
+        }
+
+        // Memperbarui nilai cahaya untuk Terang
+        var cahayaTerangElement = document.getElementById("cahayaTerang");
+        if (cahayaTerangElement) {
+          cahayaTerangElement.innerHTML =
+            cahayaTerang !== null ? cahayaTerang : "-";
+        }
+
         // Menggambar grafik lingkaran
         var ctx = document.getElementById("myChart").getContext("2d");
         var myChart = new Chart(ctx, {
@@ -267,6 +283,8 @@ firebase.auth().onAuthStateChanged((user) => {
               "Suhu Terang",
               "Kelembapan Gelap",
               "Kelembapan Terang",
+              "Cahaya Gelap",
+              "Cahaya Terang",
             ],
             datasets: [
               {
@@ -275,11 +293,19 @@ firebase.auth().onAuthStateChanged((user) => {
                   suhuTerang,
                   kelembapanGelap,
                   kelembapanTerang,
+                  cahayaGelap,
+                  cahayaTerang,
                 ],
-                backgroundColor: ["#1cc88a", "#f6c23e", "#4e73df", "#36b9cc"],
+                backgroundColor: [
+                  "#1cc88a",
+                  "#f6c23e",
+                  "#4e73df",
+                  "#36b9cc",
+                  "#071952",
+                  "#EF6262",
+                ],
                 borderColor: "#ffffff",
                 borderWidth: 2,
-
                 hoverBorderColor: "rgba(234, 236, 244, 1)",
               },
             ],
@@ -288,7 +314,7 @@ firebase.auth().onAuthStateChanged((user) => {
             responsive: true,
             maintainAspectRatio: false,
             legend: {
-              display: false, // Menghilangkan label
+              display: false,
             },
             tooltips: {
               backgroundColor: "rgb(255,255,255)",
@@ -304,8 +330,9 @@ firebase.auth().onAuthStateChanged((user) => {
           },
         });
       });
+      //END CHART DATA SYSTEM
 
-      // Mendengarkan perubahan data pada node 'Hasil_Pembacaan'
+      //VALUE DAN PROGRES BAR
       database.ref().on("value", function (snapshot) {
         var data = snapshot.val();
         var gelapData = data.Gelap;
@@ -344,6 +371,24 @@ firebase.auth().onAuthStateChanged((user) => {
         if (terangKelembapanValueElement) {
           terangKelembapanValueElement.innerHTML = terangData
             ? "" + terangData.kelembapan + " %"
+            : "";
+        }
+
+        // Memperbarui nilai dalam elemen div cahaya Gelap
+        var gelapCahayaValueElement =
+          document.getElementById("gelapCahayaValue");
+        if (gelapCahayaValueElement) {
+          gelapCahayaValueElement.innerHTML = gelapData
+            ? "" + gelapData.cahaya
+            : "";
+        }
+
+        // Memperbarui nilai dalam elemen div cahaya Terang
+        var terangCahayaValueElement =
+          document.getElementById("terangCahayaValue");
+        if (terangCahayaValueElement) {
+          terangCahayaValueElement.innerHTML = terangData
+            ? "" + terangData.cahaya
             : "";
         }
 
@@ -410,7 +455,40 @@ firebase.auth().onAuthStateChanged((user) => {
             terangKelembapanPersentase
           );
         }
+
+        // Menghitung persentase width berdasarkan data cahaya
+        var gelapCahayaPersentase = gelapData
+          ? (gelapData.cahaya / 1023) * 100
+          : 0;
+        var terangCahayaPersentase = terangData
+          ? (terangData.cahaya / 1023) * 100
+          : 0;
+
+        // Mengubah style width pada elemen div progress bar cahaya Gelap
+        var gelapCahayaProgressBar = document.getElementById(
+          "gelapCahayaProgressBar"
+        );
+        if (gelapCahayaProgressBar) {
+          gelapCahayaProgressBar.style.width = gelapCahayaPersentase + "%";
+          gelapCahayaProgressBar.setAttribute(
+            "aria-valuenow",
+            gelapCahayaPersentase
+          );
+        }
+
+        // Mengubah style width pada elemen div progress bar cahaya Terang
+        var terangCahayaProgressBar = document.getElementById(
+          "terangCahayaProgressBar"
+        );
+        if (terangCahayaProgressBar) {
+          terangCahayaProgressBar.style.width = terangCahayaPersentase + "%";
+          terangCahayaProgressBar.setAttribute(
+            "aria-valuenow",
+            terangCahayaPersentase
+          );
+        }
       });
+      //END PROGRES BAR DAN VALUE
 
       //home
 
@@ -426,50 +504,73 @@ firebase.auth().onAuthStateChanged((user) => {
               kategori: data[timestamp].kategori,
               suhu: data[timestamp].suhu,
               kelembapan: data[timestamp].kelembapan,
+              cahaya: data[timestamp].cahaya, // Tambahkan cahaya
               tanggal: data[timestamp].tanggal,
             };
             riwayatArray.push(riwayatData);
           });
         }
 
-        // Memperbarui nilai suhu, kelembapan,
-        var suhuElement = document.getElementById("suhu");
-        var kelembapanElement = document.getElementById("kelembapan");
+        // Memperbarui nilai suhu, kelembapan, dan cahaya
+        database.ref("riwayat").on("value", function (snapshot) {
+          var data = snapshot.val();
+          var riwayatArray = [];
 
-        if (suhuElement && kelembapanElement) {
-          var latestData =
-            riwayatArray.length > 0
-              ? riwayatArray[riwayatArray.length - 1]
-              : null;
-          suhuElement.innerHTML = latestData ? latestData.suhu + " °C" : "-";
-          kelembapanElement.innerHTML = latestData
-            ? latestData.kelembapan + " %"
-            : "-";
-        }
+          // Mengubah objek data menjadi array
+          if (data) {
+            Object.keys(data).forEach(function (timestamp) {
+              var riwayatData = {
+                timestamp: timestamp,
+                kategori: data[timestamp].kategori,
+                suhu: data[timestamp].suhu,
+                kelembapan: data[timestamp].kelembapan,
+                cahaya: data[timestamp].cahaya, // Tambahkan cahaya
+              };
+              riwayatArray.push(riwayatData);
+            });
+          }
 
-        // Menghapus dan menginisialisasi tabel menggunakan plugin DataTables
-        var table = $("#measurementTable").DataTable({
-          destroy: true, // Menghancurkan tabel sebelumnya (jika ada)
-          data: riwayatArray,
-          columns: [
-            {
-              data: "timestamp",
-              render: function (data) {
-                return new Date(parseInt(data)).toLocaleString();
+          // Memperbarui nilai suhu, kelembapan, dan cahaya
+          var suhuElement = document.getElementById("suhu");
+          var kelembapanElement = document.getElementById("kelembapan");
+          var cahayaElement = document.getElementById("cahaya");
+
+          if (suhuElement && kelembapanElement && cahayaElement) {
+            var latestData =
+              riwayatArray.length > 0
+                ? riwayatArray[riwayatArray.length - 1]
+                : null;
+            suhuElement.innerHTML = latestData ? latestData.suhu + " °C" : "-";
+            kelembapanElement.innerHTML = latestData
+              ? latestData.kelembapan + " %"
+              : "-";
+            cahayaElement.innerHTML = latestData ? latestData.cahaya : "-";
+          }
+
+          // Menghapus dan menginisialisasi tabel menggunakan plugin DataTables
+          var table = $("#measurementTable").DataTable({
+            destroy: true, // Menghancurkan tabel sebelumnya (jika ada)
+            data: riwayatArray,
+            columns: [
+              {
+                data: "timestamp",
+                render: function (data) {
+                  return new Date(parseInt(data)).toLocaleString();
+                },
               },
-            },
-            { data: "kategori" },
-            { data: "suhu" },
-            { data: "kelembapan" },
-            { data: "tanggal" },
-          ],
-        });
+              { data: "kategori" },
+              { data: "suhu" },
+              { data: "kelembapan" },
+              { data: "cahaya" }, // Tambahkan kolom cahaya
+            ],
+          });
 
-        // Mengatur panjang maksimum tabel menjadi 10 baris
-        table.page.len(10).draw();
+          // Mengatur panjang maksimum tabel menjadi 10 baris
+          table.page.len(10).draw();
+        });
       });
 
-      // Mendapatkan data riwayat dari Firebase Database
+      //END TABLE
       database.ref("riwayat").on("value", function (snapshot) {
         var data = snapshot.val();
         var riwayatArray = [];
@@ -481,6 +582,7 @@ firebase.auth().onAuthStateChanged((user) => {
               timestamp: parseInt(key),
               suhu: value.suhu,
               kelembapan: value.kelembapan,
+              cahaya: value.cahaya || "", // Tambahkan cahaya
               kategori: value.kategori || "",
               tanggal: value.tanggal || "",
             };
@@ -501,6 +603,8 @@ firebase.auth().onAuthStateChanged((user) => {
         var kelembapanTerangData = [];
         var kelembapanGelapData = [];
         var tanggalData = [];
+        var cahayaTerangData = []; // Tambahkan cahaya terang
+        var cahayaGelapData = []; // Tambahkan cahaya gelap
 
         riwayatArray.forEach(function (riwayat) {
           var timestamp = new Date(parseInt(riwayat.timestamp));
@@ -508,10 +612,27 @@ firebase.auth().onAuthStateChanged((user) => {
 
           if (riwayat.kategori === "Terang") {
             suhuTerangData.push(riwayat.suhu);
+            suhuTerangData.push(riwayat.suhu !== null ? riwayat.suhu : NaN);
             kelembapanTerangData.push(riwayat.kelembapan);
+            kelembapanTerangData.push(
+              riwayat.kelembapan !== null ? riwayat.kelembapan : NaN
+            );
+            cahayaTerangData.push(riwayat.cahaya); // Tambahkan cahaya terang
+            cahayaTerangData.push(
+              riwayat.cahaya !== null ? riwayat.cahaya : NaN
+            );
           } else if (riwayat.kategori === "Gelap") {
             suhuGelapData.push(riwayat.suhu);
+            suhuGelapData.push(riwayat.suhu !== null ? riwayat.suhu : NaN);
             kelembapanGelapData.push(riwayat.kelembapan);
+            kelembapanGelapData.push(
+              riwayat.kelembapan !== null ? riwayat.kelembapan : NaN
+            );
+
+            cahayaGelapData.push(
+              riwayat.cahaya !== null ? riwayat.cahaya : NaN
+            );
+            cahayaGelapData.push(riwayat.cahaya); // Tambahkan cahaya gelap
           }
 
           tanggalData.push(riwayat.tanggal);
@@ -588,12 +709,41 @@ firebase.auth().onAuthStateChanged((user) => {
                 pointBorderWidth: 2,
                 data: kelembapanGelapData,
               },
+              {
+                label: "Cahaya Terang", // Tambahkan label cahaya terang
+                lineTension: 0.3,
+                backgroundColor: "rgba(255, 255, 0, 0.05)",
+                borderColor: "#EF6262",
+                pointRadius: 3,
+                pointBackgroundColor: "#EF6262",
+                pointBorderColor: "#EF6262",
+                pointHoverRadius: 3,
+                pointHoverBackgroundColor: "#EF6262",
+                pointHoverBorderColor: "#EF6262",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                data: cahayaTerangData,
+              },
+              {
+                label: "Cahaya Gelap",
+                lineTension: 0.3,
+                backgroundColor: "rgba(51, 51, 51, 0.05)",
+                borderColor: "#071952",
+                pointRadius: 3,
+                pointBackgroundColor: "#071952",
+                pointBorderColor: "#071952",
+                pointHoverRadius: 3,
+                pointHoverBackgroundColor: "#071952",
+                pointHoverBorderColor: "#071952",
+                pointHitRadius: 10,
+                pointBorderWidth: 2,
+                data: cahayaGelapData,
+              },
             ],
           },
           options: {
             responsive: true,
             maintainAspectRatio: false,
-
             legend: {
               display: false,
             },
@@ -608,13 +758,15 @@ firebase.auth().onAuthStateChanged((user) => {
         });
       }
 
+      // SAVE RIWAYATA DATA
+
       const storageRef = firebase.storage().ref();
       const folderName = "data";
-      const maxDataCount = 100000;
+      const maxDataCount = 10000; //data max yang di simpan
 
       setInterval(function () {
         updateData();
-      }, 300000);
+      }, 300000); // variabe waktu untuk auto update
 
       const updateBtn = document.getElementById("updateBtn");
       updateBtn.addEventListener("click", updateData);
@@ -631,16 +783,18 @@ firebase.auth().onAuthStateChanged((user) => {
           var gelapData = gelapSnapshot.val();
           var gelapSuhu = gelapData ? gelapData.suhu : null;
           var gelapKelembapan = gelapData ? gelapData.kelembapan : null;
+          var gelapCahaya = gelapData ? gelapData.cahaya : null;
 
-          saveHistory("Gelap", gelapSuhu, gelapKelembapan);
+          saveHistory("Gelap", gelapSuhu, gelapKelembapan, gelapCahaya);
         });
 
         terangRef.once("value", function (terangSnapshot) {
           var terangData = terangSnapshot.val();
           var terangSuhu = terangData ? terangData.suhu : null;
           var terangKelembapan = terangData ? terangData.kelembapan : null;
+          var terangCahaya = terangData ? terangData.cahaya : null;
 
-          saveHistory("Terang", terangSuhu, terangKelembapan);
+          saveHistory("Terang", terangSuhu, terangKelembapan, terangCahaya);
         });
       }
 
@@ -678,7 +832,7 @@ firebase.auth().onAuthStateChanged((user) => {
         }
       }
 
-      function saveHistory(kategori, suhu, kelembapan) {
+      function saveHistory(kategori, suhu, kelembapan, cahaya) {
         const database = firebase.database();
         const historyRef = database.ref("riwayat");
         const timestamp = Date.now();
@@ -695,6 +849,7 @@ firebase.auth().onAuthStateChanged((user) => {
             kategori: kategori,
             suhu: suhu,
             kelembapan: kelembapan,
+            cahaya: cahaya, // Tambahkan cahaya
           })
           .then(() => {
             console.log("History saved successfully");
@@ -706,6 +861,7 @@ firebase.auth().onAuthStateChanged((user) => {
               kategori: kategori,
               suhu: suhu,
               kelembapan: kelembapan,
+              cahaya: cahaya, // Tambahkan cahaya
             });
             const fileRef = storageRef.child(
               folderName + "/" + timestamp + ".json"

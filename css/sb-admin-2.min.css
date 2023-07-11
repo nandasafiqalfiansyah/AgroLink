@@ -5925,6 +5925,13 @@ button.bg-secondary:hover {
 .bg-success {
   background-color: #1cc88a !important;
 }
+
+.bg-cahaya1 {
+  background-color: #071952 !important;
+}
+.bg-cahaya2 {
+  background-color: #ef6262 !important;
+}
 a.bg-success:focus,
 a.bg-success:hover,
 button.bg-success:focus,
@@ -8848,6 +8855,14 @@ a.text-secondary:hover {
 .text-success {
   color: #1cc88a !important;
 }
+
+.text-cahaya1 {
+  color: #071952 !important;
+}
+
+.text-cahaya2 {
+  color: #ef6262 !important;
+}
 a.text-success:focus,
 a.text-success:hover {
   color: #13855c !important;
@@ -9238,6 +9253,13 @@ a:focus {
 }
 .border-left-info {
   border-left: 0.25rem solid #36b9cc !important;
+}
+
+.border-left-cahaya2 {
+  border-left: 0.25rem solid #ef6262 !important;
+}
+.border-left-cahaya1 {
+  border-left: 0.25rem solid #071952 !important;
 }
 .border-bottom-info {
   border-bottom: 0.25rem solid #36b9cc !important;
