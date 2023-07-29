@@ -26,7 +26,7 @@ Ini adalah proyek web sprouts-iot yang berfokus pada monitoring dan analisis dat
 
 2. Buka file `index.html` di web browser.
 
-3. Nikmati fitur-fitur AgroLink.
+3. Nikmati fitur-fitur proyek web sprouts-iot.
 
 ## Kontribusi
 
