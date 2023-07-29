@@ -1,6 +1,6 @@
 # sprouts-iot
 
-Ini adalah proyek web AgroLink yang berfokus pada monitoring dan analisis data pertanian.
+Ini adalah proyek web sprouts-iot yang berfokus pada monitoring dan analisis data pertanian.
 
 ## Fitur
 
