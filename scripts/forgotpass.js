@@ -1,5 +1,5 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyAjU5e6Ri_4K51FaG8b6sdtNQGkGtkjXGU",
+   apiKey: "AIzaSyAjU5e6Ri_4K51FaG8b6sdtNQGkGtkjXGU",
   authDomain: "kecambah-hd-c46f3.firebaseapp.com",
   databaseURL: "https://kecambah-hd-c46f3-default-rtdb.firebaseio.com",
   projectId: "kecambah-hd-c46f3",
