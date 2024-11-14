@@ -1,12 +1,12 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyDW5F9NFxmCiydrU4xvnhrwB04XGxStvV4",
+  apiKey: "AIzaSyAjU5e6Ri_4K51FaG8b6sdtNQGkGtkjXGU",
   authDomain: "kecambah-hd-c46f3.firebaseapp.com",
   databaseURL: "https://kecambah-hd-c46f3-default-rtdb.firebaseio.com",
   projectId: "kecambah-hd-c46f3",
   storageBucket: "kecambah-hd-c46f3.appspot.com",
   messagingSenderId: "808821633061",
   appId: "1:808821633061:web:397da80129ed0f038c0fcc",
-  measurementId: "G-S4QLRV0JK9",
+  measurementId: "G-S4QLRV0JK9"
 };
 
 // Initialize Firebase
