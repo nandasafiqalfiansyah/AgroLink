@@ -6,7 +6,7 @@ const firebaseConfig = {
   storageBucket: "kecambah-hd-c46f3.appspot.com",
   messagingSenderId: "808821633061",
   appId: "1:808821633061:web:397da80129ed0f038c0fcc",
-  measurementId: "G-S4QLRV0JK9",
+  measurementId: "G-S4QLRV0JK9"
 };
 // Inisialisasi Firebase
 firebase.initializeApp(firebaseConfig);
